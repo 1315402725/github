@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	   xsi:schemaLocation="http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/jdbc
+        http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
+">
+
+	<aop:aspectj-autoproxy proxy-target-class="true" expose-proxy="true" />
+	<!-- bean annotation driven -->
+	<context:annotation-config />
+	<context:component-scan base-package="com.yubei">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+
+	<!-- SqlSessionFactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="masterDataSource" />
+		<property name="mapperLocations" value="classpath*:mapper/*.xml" />
+	</bean>
+
+	<!--inject oms list -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+		<property name="basePackage" value="com.yubei.dao" />
+	</bean>
+
+	<!-- 开启事务注解驱动 -->
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" />
+
+	<!-- 事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="masterDataSource" />
+	</bean>
+
+
+
+
+
+
+
+
+
+	<!--使用h2的内存数据库-->
+
+	<!--jdbc:h2:tcp://172.31.82.31:9092//D:/h2/database/bjtoon-govcontact;MODE=MySQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;INIT=CREATESCHEMA IF NOT EXISTS 'public';LOCK_TIMEOUT=10000;-->
+	<!--运行时自启动h2服务 Spring中h2 TCP Server 配置 -->
+	<bean id="h2Server" class="org.h2.tools.Server"
+		  factory-method="createTcpServer" init-method="start" destroy-method="stop">
+		<constructor-arg value="-tcp,-tcpAllowOthers,-tcpPort,9092" />
+	</bean>
+
+	<bean id="masterDataSource" class="org.h2.jdbcx.JdbcConnectionPool"
+		  destroy-method="dispose">
+		<constructor-arg>
+			<bean class="org.h2.jdbcx.JdbcDataSource">
+
+				<property name="URL" value="jdbc:h2:mem:zwt_feedback;MODE=MySQL;"/>
+				<property name="user" value="root" />
+				<property name="password" value="root" />
+			</bean>
+		</constructor-arg>
+	</bean>
+
+	<jdbc:initialize-database data-source="masterDataSource">
+		<jdbc:script location="classpath:sql/zwt_feedback.sql"/>
+	</jdbc:initialize-database>
+</beans>
