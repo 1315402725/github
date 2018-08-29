@@ -1,6 +1,6 @@
 ---
 title: python斗罗大陆词云
-date: 2018-8-16 23:39:00
+date: 2018-08-16 23:39:00
 tags: python
 categories: python
 ---

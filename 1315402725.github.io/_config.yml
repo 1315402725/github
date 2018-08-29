@@ -141,9 +141,9 @@ baidu_url_submit:
 # Deployment
 # Docs: http://hexo.io/docs/deployment.html
 deploy:
-- type: git
-  repo: git@github.com:1315402725/1315402725.github.io.git,master
-
-
+  type: git
+  repo: 
+      coding: git@git.coding.net:sunyubei/sunyubei.git,master
+      origin: git@github.com:1315402725/1315402725.github.io.git,master
 # - type: git
 #   repo: git@git.coding.net:maocg/maocg.git,coding-pages
