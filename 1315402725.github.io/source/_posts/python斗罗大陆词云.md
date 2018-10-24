@@ -4,9 +4,7 @@ date: 2018-08-16 23:39:00
 tags: python
 categories: python
 ---
-** {{ title }}：** <Excerpt in index | 首页摘要>
-<!-- more -->
-<The rest of contents | 余下全文>
+
 1 “词云”就是对网络文本中出现频率较高的“关键词”予以视觉上的突出，形成“关键词云层”或“关键词渲染”，从而过滤掉大量的文本信息，使浏览网页者只要一眼扫过文本就可以领略文本的主旨  
  2 之前看到网上有大神绘制了扶摇小说的python词云图，我自己也仿照弄了一个  
  以下是操作过程  
@@ -23,7 +21,8 @@ Pandas基于两种数据类型：series与dataframe。
 一个dataframe是一个二维的表结构。Pandas的dataframe可以存储许多种不同的数据类型，并且每一个坐标轴都有自己的标签。你可以把它想象成一个series的字典项。  
 5 Matplotlib 是一个 Python 的 2D绘图库，它以各种硬拷贝格式和跨平台的交互式环境生成出版质量级别的图形  
 6   [WordCloud]:  github:https://github.com/amueller/word_cloud  "Github"
-[官方地址]: https://amueller.github.io/word_cloud/  
+[官方地址]: https://amueller.github.io/word_cloud/ 
+<!-- more --> 
 ```
 # -*- coding: UTF-8 -*-
 #读取文本数据

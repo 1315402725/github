@@ -5,10 +5,6 @@ tags: java基础
 categories: java
 ---
 
-** {{ title }}：** <Excerpt in index | 首页摘要>
-<!-- more -->
-<The rest of contents | 余下全文>
-
 
 例1、用lambda表达式实现Runnable
     1.8之前
@@ -23,7 +19,9 @@ categories: java
     //java 8方式
     new Thread(() -> System.out.println("In java8 ,Lambda expression rocks !!")).start();
     ```
+
 例2 使用java 8 lambda表达式进行事件处理
+<!-- more -->
 ```
     // java 8之前
     jButton show =new JButton("Show");
